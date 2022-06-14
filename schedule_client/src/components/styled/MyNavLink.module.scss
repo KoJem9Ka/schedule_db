@@ -1,0 +1,20 @@
+.MyNavLink {
+  padding       : .3rem 2rem;
+  transition    : all .3s cubic-bezier(.87, .08, .08, .89);
+  color         : var(--text-heads);
+  border        : 1px solid var(--button2-stroke);
+  border-radius : .8rem;
+  background    : var(--button2-color);
+
+  &:hover {
+    background : var(--button-hover);
+  }
+
+  &:active {
+    background : var(--button2-stroke);
+  }
+}
+
+.active {
+  color : var(--text-accent);
+}

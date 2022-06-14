@@ -1,0 +1,23 @@
+.btn1 {
+  padding       : .1rem .5rem;
+  cursor        : pointer;
+  color         : var(--text-heads);
+  border        : 1px solid var(--button2-stroke);
+  border-radius : .5rem;
+  background    : var(--button2-color);
+
+  &:hover {
+    background : var(--button-hover);
+  }
+
+  &:active {
+    background : var(--card-accent-gradient);
+  }
+
+  &:disabled {
+    text-decoration : line-through;
+    color           : var(--text-0);
+    border          : 1px solid transparent;
+    background      : var(--header-stroke);
+  }
+}

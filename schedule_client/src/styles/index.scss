@@ -1,0 +1,13 @@
+@import './reset';
+@import './colors';
+
+
+:root {
+  font-size : 18px;
+}
+
+body {
+  font-family      : "iA Writer Mono V", monospace;
+  color            : var(--text-0);
+  background-color : var(--bg-0);
+}

@@ -1,0 +1,26 @@
+:root {
+  --bg-0                       : #001E3C;
+  --bg-0-stroke                : #1E4976;
+  --text-0                     : #B2BAC2;
+
+  --bg-1                       : #0A1928;
+
+  --text-heads                 : #FFFFFF;
+  --text-accent                : #3399FF;
+
+  --button-color               : #007FFF;
+  --button-hover               : #0059B2;
+  //button2 text color: heads
+
+  --button2-color              : #132F4C;
+  --button2-stroke             : #265D97;
+  //button2 text color: 0
+
+  --header-bg                  : #071A2E;
+  --header-stroke              : #132E4B;
+  --header-search-bg           : #0A1929;
+
+  --card-accent-gradient       : rgba(0, 0, 0, 0) linear-gradient(to right bottom, rgb(0, 127, 255), rgb(0, 89, 178) 120%) repeat scroll 0% 0%;
+  --card-accent-gradient-hover : rgba(0, 0, 0, 0) linear-gradient(to right bottom, rgb(0, 147, 255), rgb(0, 109, 178) 120%) repeat scroll 0% 0%;
+
+}

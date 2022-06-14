@@ -1,0 +1,120 @@
+env           :
+  browser : true
+  es2021  : true
+extends       :
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:@typescript-eslint/recommended
+parser        : '@typescript-eslint/parser'
+parserOptions :
+  ecmaFeatures :
+    jsx : true
+  ecmaVersion  : latest
+  sourceType   : module
+  project      :
+    - tsconfig.json
+plugins       :
+  - react
+  - '@typescript-eslint'
+rules         : {
+
+  indent                                                      : off,
+  '@typescript-eslint/indent'                                 : [ warn, 2, { "VariableDeclarator" : "first",
+                                                                             "FunctionExpression" : { "parameters" : first },
+                                                                             "MemberExpression"   : 2 } ],
+  semi                                                        : off,
+  '@typescript-eslint/semi'                                   : [ warn, never ],
+  no-unused-vars                                              : off,
+  '@typescript-eslint/no-unused-vars'                         : [ warn, { args : all } ],
+  jsx-quotes                                                  : [ warn, prefer-single ],
+  quotes                                                      : off,
+  '@typescript-eslint/quotes'                                 : [ warn, single ],
+  quote-props                                                 : [ warn, as-needed ],
+  no-dupe-keys                                                : error,
+  eqeqeq                                                      : [ error, always ],
+  no-console                                                  : [ warn, { allow : [ warn, error ] } ],
+  #  one-var                                            : [ error, consecutive ],
+  one-var-declaration-per-line                                : [ warn, always ],
+  brace-style                                                 : off,
+  '@typescript-eslint/brace-style'                            : [ warn, stroustrup, { allowSingleLine : true } ],
+  block-spacing                                               : warn,
+  no-trailing-spaces                                          : off,
+  space-before-blocks                                         : warn,
+  space-infix-ops                                             : off,
+  '@typescript-eslint/space-infix-ops'                        : warn,
+  space-unary-ops                                             : [ error,{ "words" : true, "nonwords" : false } ],
+  arrow-body-style                                            : [ warn, as-needed ],
+  prefer-arrow-callback                                       : [ warn, { allowNamedFunctions : true } ],
+  arrow-parens                                                : [ warn, as-needed ],
+  implicit-arrow-linebreak                                    : [ warn, beside ],
+  no-confusing-arrow                                          : [ warn ],
+  arrow-spacing                                               : warn,
+  curly                                                       : [ off, multi-or-nest ],
+  comma-dangle                                                : off,
+  '@typescript-eslint/comma-dangle'                           : [ warn, { objects : always-multiline } ],
+  comma-spacing                                               : off,
+  '@typescript-eslint/comma-spacing'                          : [ warn, { before : false, after : true } ],
+  object-curly-spacing                                        : off,
+  '@typescript-eslint/object-curly-spacing'                   : [ warn, always ],
+  array-bracket-spacing                                       : [ warn, always ],
+  #  prefer-destructuring: [ error, { AssignmentExpression: { array: true, object: true } } ],
+  #  'no-redeclare'                    : [ error, { builtinGlobals: true } ],
+  no-shadow                                                   : off,
+  '@typescript-eslint/no-shadow'                              : [ error,{ builtinGlobals : false, hoist : all } ],
+  no-duplicate-imports                                        : off,
+  '@typescript-eslint/no-duplicate-imports'                   : error,
+  react/jsx-sort-props                                        : [ warn, { callbacksLast        : true,
+                                                                          shorthandLast        : true,
+                                                                          multiline            : last,
+                                                                          ignoreCase           : true,
+                                                                          noSortAlphabetically : false,
+                                                                          reservedFirst        : true,
+  } ],
+  react/jsx-max-props-per-line                                : [ warn, { maximum : { single : 3, multi : 1 } } ],
+  react/jsx-first-prop-new-line                               : [ warn, multiline ],
+  react/jsx-one-expression-per-line                           : [ warn, { allow : single-child } ], #  //none | literal | single-child
+  react/jsx-wrap-multilines                                   : [ warn, { declaration : parens,
+                                                                          assignment  : parens,
+                                                                          return      : parens-new-line,
+                                                                          arrow       : parens-new-line,
+                                                                          condition   : ignore,
+                                                                          logical     : ignore,
+                                                                          prop        : ignore
+  } ],
+  react/jsx-closing-bracket-location                          : [ warn ],
+  #    react/jsx-indent                  : [ error, 2 ],
+  react/jsx-newline                                           : [ off, { prevent : true } ],
+  react/no-access-state-in-setstate                           : [ error ],
+  '@typescript-eslint/array-type'                             : [ warn, { array } ],
+  '@typescript-eslint/consistent-type-definitions'            : [ warn, type ],
+  '@typescript-eslint/explicit-function-return-type'          : off ,
+  #  '@typescript-eslint/require-array-sort-compare'    : [ warn, { ignoreStringArrays : true } ],
+  '@typescript-eslint/typedef'                                : [ warn, { memberVariableDeclaration : true,
+                                                                          parameter                 : true,
+                                                                          propertyDeclaration       : true } ],
+  '@typescript-eslint/no-unnecessary-type-assertion'          : warn,
+  '@typescript-eslint/no-unnecessary-type-constraint'         : warn,
+  '@typescript-eslint/consistent-indexed-object-style'        : warn,
+  '@typescript-eslint/member-delimiter-style'                 : [ warn,{ multiline          : { delimiter   : none,
+                                                                                                requireLast : false },
+                                                                         singleline         : { delimiter   : comma,
+                                                                                                requireLast : false },
+                                                                         multilineDetection : brackets } ],
+  '@typescript-eslint/method-signature-style'                 : [ warn, property ],
+  '@typescript-eslint/no-unnecessary-boolean-literal-compare' : warn,
+  '@typescript-eslint/no-unnecessary-condition'               : warn,
+  '@typescript-eslint/no-unnecessary-qualifier'               : warn,
+  '@typescript-eslint/prefer-includes'                        : warn,
+  '@typescript-eslint/prefer-reduce-type-parameter'           : warn,
+  '@typescript-eslint/prefer-string-starts-ends-with'         : warn,
+  '@typescript-eslint/promise-function-async'                 : warn,
+  '@typescript-eslint/type-annotation-spacing'                : [ warn, { "before" : false, "after" : true } ],
+  '@typescript-eslint/adjacent-overload-signatures'           : warn,
+  react/jsx-key                                               : error,
+  '@typescript-eslint/ban-types'                              : off,
+  '@typescript-eslint/no-empty-function'                      : off,
+  react/no-children-prop                                      : off,
+  no-case-declarations                                        : off,
+  react/display-name                                          : off,
+  react/prop-types                                            : off,
+}

@@ -1,0 +1,30 @@
+.Header {
+  font-size       : 1.3rem;
+  display         : flex;
+  align-items     : center;
+  justify-content : space-around;
+  padding         : 1rem;
+  color           : var(--text-heads);
+  border-bottom   : 1px solid var(--header-stroke);
+  background      : var(--header-bg);
+
+  ul {
+    font-size : 1rem;
+
+    & > * + * {
+      margin-left : .5rem;
+    }
+  }
+}
+
+.logo {
+  font-size   : 1.5rem;
+
+  font-weight : bold;
+  user-select : none;
+  color       : white;
+
+  &:hover {
+    transform : scale(1.1);
+  }
+}

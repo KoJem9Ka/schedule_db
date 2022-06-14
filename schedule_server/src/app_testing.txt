@@ -1,0 +1,31 @@
+import express from 'express'
+
+const app = express()
+app.use( express.json() )
+app.use( express.text() )
+app.listen( 3001, () => void console.log( 'App listening on http://localhost:3001' ) )
+
+app.loadAll( '/', (req, res) => {
+  const auth = req.body
+  // return res.json( { success: true } );
+  return res.send( `ok: ${auth}` );
+} )
+
+app.addOne( '/data', (req, res) => {
+  const data = req.body
+  console.log( data )
+  return res.sendStatus( 200 )
+} )
+
+app.loadAll( '/books/:author/:book', (req, res) => {
+  return res.json( {
+    params: {
+      author: req.params.author,
+      book  : req.params.book
+    },
+    keys: {
+      abc: req.query.abc,
+      def: req.query.def
+    }
+  } )
+} )
