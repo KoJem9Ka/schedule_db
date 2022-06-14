@@ -1,8 +1,7 @@
-import db_client from "../../db";
-import { TCabinet, TSubject } from "./types";
+import db_client from "../db";
+import { TCabinet, TObjectForTuple, TSubject, tupleMiddleware, TupleNumStr } from "../types";
 
 
-type TupleNumStr = [ number, string ]
 type TSelectSubjectAvailabilities = {
   groups: TupleNumStr[]
   educators: TupleNumStr[]
@@ -21,12 +20,12 @@ const oneLessonService = {
                           from subject_available_educators($1)`
     const values = [ id_subject ]
 
-    const groups = (await db_client.query<{ group: string, id_group: number }>( sqlGroups, values )).rows
-    const educators = (await db_client.query<{ educator: string, id_educator: number }>( sqlEducators, values )).rows
+    const groups = (await db_client.query<TObjectForTuple>( sqlGroups, values )).rows
+    const educators = (await db_client.query<TObjectForTuple>( sqlEducators, values )).rows
 
     return {
-      groups   : groups.reduce( (rez: TupleNumStr[], row) => ([ ...rez, [ row.id_group, row.group ] ]), [] ),
-      educators: educators.reduce( (rez: TupleNumStr[], row) => ([ ...rez, [ row.id_educator, row.educator ] ]), [] )
+      groups   : tupleMiddleware( groups ),
+      educators: tupleMiddleware( educators )
     }
   },
 

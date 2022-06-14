@@ -13,7 +13,7 @@ type ContainerProps = {
 
 const Container: React.FC<ContainerProps> = props => {
 
-  const classOuter = [ props.classOuter ].join( ' ' )
+  const classOuter = [ styles.Outer, props.classOuter ].join( ' ' )
 
   const classInner = [ styles.Container, props.classInner ].join( ' ' )
 

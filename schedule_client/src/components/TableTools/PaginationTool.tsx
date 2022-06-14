@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import styles from './PaginationTool.module.scss'
+import { Button } from '../styled/MyStyledComponents'
 
 type PaginationToolProps = {
   page: number
@@ -11,6 +12,8 @@ type PaginationToolProps = {
 const PaginationTool: React.FC<PaginationToolProps> = ({ page, limit, itemsCount, setPage }) => {
   const getLastPage = (l = limit, c = itemsCount) => Math.ceil( c / l )
   const lastPage = getLastPage()
+  const canPrevious = page > 1
+  const canNext = page < lastPage
   const perPage = Array.from( new Set( [ 5, 10, 20, 50, 100, itemsCount ] ) )
   const [ pageBuffer, setPageBuffer ] = useState( page )
   const timerRef = useRef<any>()
@@ -29,7 +32,9 @@ const PaginationTool: React.FC<PaginationToolProps> = ({ page, limit, itemsCount
 
   return (
     <div className={styles.PaginationTool}>
-      Страница&nbsp;
+      <p>Страница</p>
+      <Button disabled={!canPrevious} onClick={() => pageThrottled( 1, limit, false )}>{'<<'}</Button>
+      <Button disabled={!canPrevious} onClick={() => pageThrottled( pageBuffer - 1, limit )}>{'<'}</Button>
       <input
         max={lastPage}
         min={1}
@@ -37,9 +42,11 @@ const PaginationTool: React.FC<PaginationToolProps> = ({ page, limit, itemsCount
         value={pageBuffer}
         onChange={e => pageThrottled( +e.currentTarget.value, limit )}
       />
-      &nbsp;из&nbsp;
-      {lastPage}
-      &nbsp;На странице:&nbsp;
+      <p>из</p>
+      <p>{lastPage}</p>
+      <Button disabled={!canNext} onClick={() => pageThrottled( pageBuffer + 1, limit )}>{'>'}</Button>
+      <Button disabled={!canNext} onClick={() => pageThrottled( lastPage, limit, false )}>{'>>'}</Button>
+      <p>На странице:</p>
       <select
         defaultValue={10}
         value={limit}

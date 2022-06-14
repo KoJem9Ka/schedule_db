@@ -1,6 +1,6 @@
 import express from 'express'
 import db_client from "./db";
-import routing from "./routes";
+import routing from "./index";
 import cors from 'cors'
 
 //TODO: параметризованные запросы

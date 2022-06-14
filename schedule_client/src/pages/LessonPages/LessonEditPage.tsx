@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import CabinetSelector from './CabinetSelector'
 import LessonTimeSelect, { lessonTimes } from '../../components/LessonTimeSelect/LessonTimeSelect'
 import { ROUTE } from '../../routes'
-import { ToastAvailabilities, ToastLoadLesson, ToastRemoveOneLesson, ToastRequirements, ToastUpdateLesson } from './subQueries'
+import { TOASTXT } from "../../toastMessages";
 
 const LessonEditPage: React.FC = () => {
   const navigate = useNavigate()
@@ -23,22 +23,20 @@ const LessonEditPage: React.FC = () => {
   const [ lessonOriginal, setLessonOriginal ] = useState<TLesson>()
 
   useEffect( () => {
-    if (!lesson) {
-      const p1 = api.lessons.loadOne( lessonId ).then( ({ data }) => {
-        setLessonOriginal( data )
-        setLesson( data )
-        setIsOffline( !!data.id_cabinet )
-      } )
-      const p2 = api.oneLesson.requirements().then( ({ data }) => setRequirements( data ) )
-
-      toast.promise( p1, ToastLoadLesson )
-      toast.promise( p2, ToastRequirements )
-    }
+    toast.dismiss()
+    const p1 = api.lessons.loadOne( lessonId ).then( ({ data }) => {
+      setLessonOriginal( data )
+      setLesson( data )
+      setIsOffline( !!data.id_cabinet )
+    } )
+    const p2 = api.oneLesson.requirements().then( ({ data }) => setRequirements( data ) )
+    toast.promise( p1, TOASTXT.LoadLesson )
+    toast.promise( p2, TOASTXT.Requirements )
   }, [] )
   useEffect( () => {
     if (!lesson) return
     const p1 = api.oneLesson.subjectAvailabilities( lesson.id_subject ).then( ({ data }) => setAvailabilities( data ) )
-    toast.promise( p1, ToastAvailabilities )
+    toast.promise( p1, TOASTXT.Availabilities )
   }, [ lesson?.subject ] )
 
 
@@ -51,7 +49,7 @@ const LessonEditPage: React.FC = () => {
     setLesson( {
       ...lesson,
       groups: [ ...lesson.groups, { id, name } ]
-          .sort( (a, b) => (a.name > b.name ? 1 : a.name === b.name ? 0 : -1) ),
+        .sort( (a, b) => (a.name > b.name ? 1 : a.name === b.name ? 0 : -1) ),
     } )
   }
   const delGroup = (idGroup: number) => {
@@ -106,15 +104,18 @@ const LessonEditPage: React.FC = () => {
       groupsIds: lesson.groups.map( gr => gr.id ),
     }
 
-    toast.promise( api.lessons.rewriteOne( reqBody ), ToastUpdateLesson )
+    toast.promise( api.lessons.rewriteOne( reqBody ), TOASTXT.UpdateLesson )
     setLessonOriginal( lesson )
   }
   const deleteHandler = () => {
     if (!lesson) return
     const ans = confirm( 'Вы действительно хотите удалить занятие?' )
     if (ans) {
-      const prom = api.lessons.removeSome( [ lesson.id ] ).then( () => void navigate( ROUTE.home ) )
-      toast.promise( prom, ToastRemoveOneLesson )
+      const prom = api.lessons.removeSome( [ lesson.id ] ).then( () => {
+        navigate( ROUTE.home )
+        setTimeout( () => toast.promise( prom, TOASTXT.RemoveOneLesson ), 100 )
+
+      } )
     }
   }
 

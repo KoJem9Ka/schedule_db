@@ -7,7 +7,7 @@ import LessonTimeSelect, { lessonTimes } from '../../components/LessonTimeSelect
 import CabinetSelector from './CabinetSelector'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
-import { ToastAddLesson, ToastAvailabilities, ToastAvRq } from './subQueries'
+import { TOASTXT } from '../../toastMessages'
 
 const LessonNewPage: React.FC = () => {
   const navigate = useNavigate()
@@ -18,6 +18,7 @@ const LessonNewPage: React.FC = () => {
   const [ isOffline, setIsOffline ] = useState<boolean>( true )
 
   useEffect( () => {
+    toast.dismiss()
     const p12 = Promise.all( [
       api.oneLesson.requirements(),
       api.oneLesson.subjectAvailabilities( 1 )
@@ -39,12 +40,12 @@ const LessonNewPage: React.FC = () => {
         time_end   : '10:00',
       } )
     } )
-    toast.promise( p12, ToastAvRq )
+    toast.promise( p12, TOASTXT.AvailabilitiesRequirements )
   }, [] )
   useEffect( () => {
     if (!lesson) return
     const prom = api.oneLesson.subjectAvailabilities( lesson.id_subject ).then( ({ data }) => setAvailabilities( data ) )
-    toast.promise( prom, ToastAvailabilities )
+    toast.promise( prom, TOASTXT.Availabilities )
   }, [ lesson?.subject ] )
 
   const addGroup = (id: number) => {
@@ -110,7 +111,7 @@ const LessonNewPage: React.FC = () => {
       groupsIds: lesson.groups.map( gr => gr.id ),
     }
 
-    toast.promise( api.lessons.rewriteOne( reqBody ), ToastAddLesson )
+    toast.promise( api.lessons.addOne( reqBody ), TOASTXT.AddLesson )
   }
 
   return (

@@ -3,13 +3,14 @@ import React, { useEffect } from 'react'
 import styles from './SchedulePage.module.scss'
 import { useLessons } from '../../store/lesson/hooks'
 import ScheduleTable from '../../components/ScheduleTable/ScheduleTable'
+import { toast } from 'react-toastify'
 
-//TODO: доделать пагинацию
 const SchedulePage: React.FC = () => {
-  const { list, loadLessons } = useLessons()
+  const { list, page, limit, loadLessons } = useLessons()
 
   useEffect( () => {
-    loadLessons()
+    toast.dismiss()
+    loadLessons( page, limit )
   }, [] )
 
   return (

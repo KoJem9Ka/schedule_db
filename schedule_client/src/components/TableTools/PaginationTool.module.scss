@@ -5,4 +5,8 @@
   input[type="number"] {
     width : 3rem;
   }
+
+  & > * + * {
+    margin-left : .5rem;
+  }
 }

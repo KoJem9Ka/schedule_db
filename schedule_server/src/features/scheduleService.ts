@@ -1,8 +1,8 @@
-import db_client from "../../db";
-import { lessonsMiddleware, TLessonRaw } from "./types";
-import { TAddOrUpdateOneBody } from "./controller";
+import db_client from "../db";
+import { TAddOrUpdateOneBody } from "./scheduleController";
 import { QueryConfig } from "pg";
 import format from "pg-format";
+import { lessonsMiddleware, TLessonRaw } from "../types";
 
 const scheduleService = {
   selectAllPaginated: async (page: number, limit: number) => {

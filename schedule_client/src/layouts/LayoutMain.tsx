@@ -1,16 +1,25 @@
 import React from 'react'
-import styles from './LayoutMain.module.scss'
-import Header from '../components/header/Header'
+import Header from '../components/Header/Header'
 import { Outlet } from 'react-router'
 import Container from '../HOC/Container'
+import { Bounce, ToastContainer } from 'react-toastify'
+
+//Bounce, Flip, Icons, Slide, ToastContainer, Zoom, collapseToast, cssTransition, toast, useToast, useToastContainer
 
 const LayoutMain: React.FC = () => (
-  <div className={styles.LayoutMain}>
+  <>
+    <ToastContainer
+      autoClose={3000}
+      draggable={true}
+      position='bottom-right'
+      theme='dark'
+      transition={Bounce}
+    />
     <Header/>
     <Container>
       <Outlet/>
     </Container>
-  </div>
+  </>
 )
 
 export default LayoutMain

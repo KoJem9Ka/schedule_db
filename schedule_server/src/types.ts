@@ -17,18 +17,18 @@ export type TLessonRaw = {
   commentary?: string
 }
 
-export type TLessonFinal = Omit<TLessonRaw, 'groups' | 'groups_ids'> & {
+export type TLesson = Omit<TLessonRaw, 'groups' | 'groups_ids'> & {
   groups: {
     id: number
     name: string
   }[]
 }
 
-export const lessonsMiddleware = (lessons: TLessonRaw[]): TLessonFinal[] => lessons.map( lesson => {
+export const lessonsMiddleware = (lessons: TLessonRaw[]): TLesson[] => lessons.map( lesson => {
   const ids = Array.from( new Set( lesson.groups_ids?.split( ',' ).map( id => +id ) ) )
   const names = Array.from( new Set( lesson.groups?.split( ', ' ) ) )
 
-  const groups: TLessonFinal['groups'] = []
+  const groups: TLesson['groups'] = []
   for (let i = 0; i < ids.length; ++i) groups.push( { id: ids[i], name: names[i] } )
 
   return {
@@ -37,6 +37,11 @@ export const lessonsMiddleware = (lessons: TLessonRaw[]): TLessonFinal[] => less
     groups    : groups,
   }
 } )
+
+export type TObjectForTuple = { id: number, name: string }
+export const tupleMiddleware = (obj: TObjectForTuple[]) => {
+  return obj.reduce( (rez, { id, name }) => ([ ...rez, [ id, name ] as TupleNumStr ]), [] as TupleNumStr[] )
+}
 
 export type TDBLesson = {
   id: number
@@ -50,3 +55,22 @@ export type TDBLesson = {
   home_work?: string
   commentary?: string
 }
+
+export type TSubject = {
+  id: number
+  name: string
+  course: number
+  semester: number
+  faculty: string
+  specialization: string
+}
+
+export type TCabinet = {
+  id_cabinet: number
+  building: string
+  floor: number
+  number: number
+  suffix?: string
+}
+
+export type TupleNumStr = [ number, string ]

@@ -6,7 +6,7 @@ import { useLessons } from '../../store/lesson/hooks'
 import PaginationTool from '../TableTools/PaginationTool'
 import { ROUTE } from '../../routes'
 
-const TableWrapper = styled.div`
+export const TableWrapper = styled.div`
   display        : flex;
   flex-direction : column;
 
@@ -37,7 +37,7 @@ const Tools = styled.div`
 type GridTableProps = {
   columnsCount: number
 }
-const Table = styled.div<GridTableProps>`
+export const Table = styled.div<GridTableProps>`
   display               : grid;
   grid-template-columns : repeat(${props => props.columnsCount}, auto);
   //grid-gap              : 1rem;
@@ -46,7 +46,7 @@ const Table = styled.div<GridTableProps>`
   flex                  : 0 1 auto;
 `
 
-const Th = styled.div`
+export const Th = styled.div`
   position        : sticky;
   top             : 0;
   padding         : .5rem;
@@ -64,7 +64,7 @@ type TdProps = {
   s?: object
 }
 
-const Td = styled.div.attrs<TdProps>( props => ({ style: props.s }) )<TdProps>`
+export const Td = styled.div.attrs<TdProps>( props => ({ style: props.s }) )<TdProps>`
   padding         : .5rem;
   display         : flex;
   align-items     : center;
@@ -125,7 +125,7 @@ const ScheduleTable: React.FC<ScheduleTableProps> = ({ list }) => {
                 onChange={e => setLessonChecked( row.id, e.currentTarget.checked )}
                 onClick={e => e.stopPropagation()}
               />
-              <MyLink to={`/lesson/${row.id}`}>Ред.</MyLink>
+              <MyLink to={ROUTE.idLesson( row.id )}>Ред.</MyLink>
             </Td>
             <Td s={cols['type'].s}>{caseType[row.type]}</Td>
             <Td s={cols['group'].s}>{row.groups.map( group => group.name ).join( ', ' )}</Td>

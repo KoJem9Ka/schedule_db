@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import oneLessonService from "./service";
+import oneLessonService from "./oneLessonService";
 
 const oneLessonController = {
   loadSubjectAvailabilities: async (req: Request, res: Response) => {
