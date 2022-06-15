@@ -22,7 +22,7 @@ The entire project is written using **TypesScript**.
   - React.js
 
 ## Database Relational Schema
-![](https://github.com/KoJem9Ka/schedule_db/blob/main/assets/relation_schema.png)
+![](https://github.com/KoJem9Ka/schedule_db/blob/master/assets/relation_schema.png)
 
 ## Provided Server REST API :
 - API Method Name
