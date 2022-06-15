@@ -1,11 +1,11 @@
 import { Client } from 'pg'
 
 const db_client = new Client( {
-  host    : 'localhost',
-  user    : 'kojem9ka',
-  port    : 5432,
-  password: '31325@',
-  database: 'schedule_2'
+  host    : '',
+  user    : '',
+  port    : 0,
+  password: '',
+  database: ''
 } )
 
 export default db_client
