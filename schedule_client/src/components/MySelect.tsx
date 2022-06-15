@@ -2,7 +2,7 @@ import React from 'react'
 
 type MySelectProps = {
   value?: number
-  onChange: (num: number) => void
+  onChange: (num: number)=> void
   values: any[]
 }
 
