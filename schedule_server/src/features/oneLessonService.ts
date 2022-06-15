@@ -1,5 +1,5 @@
 import db_client from "../db";
-import { TCabinet, TObjectForTuple, TSubject, tupleMiddleware, TupleNumStr } from "../types";
+import { TCabinet, TObjectForTuple, TSubject, tupleMiddleware, TupleNumStr } from "../types/types";
 
 
 type TSelectSubjectAvailabilities = {

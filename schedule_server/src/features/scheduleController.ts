@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import scheduleService from "./scheduleService";
-import { TDBLesson } from "../types";
+import { TDBLesson } from "../types/types";
 
 const scheduleController = {
   loadAll: async (req: Request, res: Response) => {

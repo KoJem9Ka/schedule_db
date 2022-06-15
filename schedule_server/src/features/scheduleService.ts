@@ -2,24 +2,21 @@ import db_client from "../db";
 import { TAddOrUpdateOneBody } from "./scheduleController";
 import { QueryConfig } from "pg";
 import format from "pg-format";
-import { lessonsMiddleware, TLessonRaw } from "../types";
+import { lessonsMiddleware, TLessonRaw } from "../types/types";
 
 const scheduleService = {
   selectAllPaginated: async (page: number, limit: number) => {
-    const selectAll = `SELECT *
-                       from loadlessons
-                       offset ${(page - 1) * limit} limit ${limit}
-    `
 
-    const selectCount = `select count(*)
-                         from lesson`
+    const lessons = (await db_client.query<TLessonRaw>( `SELECT *
+                                                         from loadlessons
+                                                         offset $1 limit $2`, [ (page - 1) * limit, limit ] )).rows
 
-    const lessons = lessonsMiddleware( (await db_client.query<TLessonRaw>( selectAll )).rows )
-    const count = +(await db_client.query<{ count: number }>( selectCount )).rows[0].count
+    const count = (await db_client.query<{ count: number }>( `select count(*)::integer
+                                                              from lesson` )).rows[0].count
 
     return {
       count,
-      lessons
+      lessons: lessonsMiddleware( lessons )
     }
   },
 
@@ -27,18 +24,17 @@ const scheduleService = {
   selectOneLesson: async (id: number) => {
     const selectOne = `select *
                        from loadlessons
-                       where id = ${id}`
+                       where id = $1`
 
-    return lessonsMiddleware( (await db_client.query<TLessonRaw>( selectOne )).rows )[0]
+    return lessonsMiddleware( (await db_client.query<TLessonRaw>( selectOne, [ id ] )).rows )[0]
   },
 
 
   deleteSome: async (ids: number[]) => {
-    const deleteRow = `DELETE
-                       FROM lesson
-                       WHERE id in (${ids.join( ',' )})
-                       returning id`
-    return (await db_client.query<{ id: number }>( deleteRow )).rows
+    return (await db_client.query<{ id: number }>( `DELETE
+                                                    FROM lesson
+                                                    WHERE id = ANY ($1::int[])
+                                                    returning id`, [ ids ] )).rows
   },
 
 

@@ -1,5 +1,5 @@
 import db_client from "../db";
-import { TObjectForTuple, tupleMiddleware } from "../types";
+import { TObjectForTuple, tupleMiddleware } from "../types/types";
 
 const pointsService = {
   selectSpecializations: async () => {

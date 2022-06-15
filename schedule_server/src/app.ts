@@ -3,8 +3,6 @@ import db_client from "./db";
 import routing from "./index";
 import cors from 'cors'
 
-//TODO: параметризованные запросы
-
 const app = express()
 
 db_client.connect()
