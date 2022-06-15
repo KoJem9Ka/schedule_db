@@ -3,35 +3,38 @@ Coursework for the subject «Databases» on the topic «The schedule of classes 
 institution it is necessary to organize the ongoing educational lessons, so this topic will be relevant.
 
 ## Screenshots
-![](https://github.com/KoJem9Ka/schedule_db/blob/main/assets/home_page.png)
-![](https://github.com/KoJem9Ka/schedule_db/blob/main/assets/lesson_edit.png)
-![](https://github.com/KoJem9Ka/schedule_db/blob/main/assets/student_points.png)
+![](https://github.com/KoJem9Ka/schedule_db/blob/master/assets/home_page.png)
+![](https://github.com/KoJem9Ka/schedule_db/blob/master/assets/lesson_edit.png)
+![](https://github.com/KoJem9Ka/schedule_db/blob/master/assets/student_points.png)
 
+## Technology Stack
 The entire project is written using **TypesScript**.
 
-Database:
-- PostgreSQL
+- Database:
+  - PostgreSQL
 
-Backend:
-- Node.js 
-- express 
-- node-postgres
+- Backend:
+  - Node.js 
+  - express 
+  - node-postgres
 
-Frontend:
-- React.js
+- Frontend:
+  - React.js
 
-## Relational Schema
+## Database Relational Schema
 ![](https://github.com/KoJem9Ka/schedule_db/blob/main/assets/relation_schema.png)
 
-## Provided API:
+## Provided Server REST API :
 - API Method Name
   - HTTP-METHOD ```url```
-  - Body: ```type```
-  - ```Response type```
+  - ```typescript
+    type body = {}
+    type res = {}
+    ```
 - Get all lessons: 
   - GET ```.../schedule?page=number&limit=number```
   - ```typescript
-    {
+    type res = {
       count: number
       lessons: TLesson[]
     }
@@ -39,19 +42,16 @@ Frontend:
 - Get one lesson by id
   - GET ```.../schedule/:id```
   - ```typescript
-    TLesson
+    type res = TLesson
     ```
 - Add lesson
   - POST `.../schedule`
-  - Body:
-    ```typescript
-    {
+  - ```typescript
+    type body = {
       lesson: TDBLesson
       groupsIds: number[]
     }
-    ```
-  - ```typescript
-    {
+    type res = {
       success: boolean
       error?: string
       newId?: number
@@ -59,24 +59,21 @@ Frontend:
     ```
 - Update lesson
   - PUT `.../schedule`
-  - Body:
-    ```typescript
-    {
+  - ```typescript
+    type body = {
       lesson: TDBLesson
       groupsIds: number[]
     }
-    ```
-  - ```typescript
-    {
+    type res = {
       success: boolean
       error?: string
     }
     ```
 - Remove some lessons
   - DELETE `.../schedule`
-  - Body: `number[]`
   - ```typescript
-    {
+    type body = number[]
+    type res = {
       success: boolean
       error?: string
       deletedIds?: number[]
@@ -84,44 +81,44 @@ Frontend:
     ```
 - Get available groups and educators for subject by id
   - GET `.../lesson/subject_availabilities/:id_subject`
-  - Returns tuples: [id, name] 
-    ```typescript
-    {
+  - ```typescript
+    //tuples: [id, name] 
+    type res = {
       groups: [ number, string ][]
       educators: [ number, string ][]
     }
     ```
 - Get subjects and cabinets
   - GET `.../lesson/requirements`
-  - Returns tuples: [id, name]
-    ```typescript
-    {
+  - ```typescript
+    //tuples: [id, name]
+    type res = {
       subjects: [ number, string ][]
       cabinets: [ number, string ][]
     }
     ```
 - Get specializations
   - GET `.../points/specializations`
-  - Returns tuples: [id, name]
-    ```
-    [ number, string ][]
+  - ```typescript
+    //tuples: [id, name]
+    type res = [ number, string ][]
     ```
 - Get groups by specialization id
   - GET `.../points/groups/:specialization_id`
-  - Returns tuples: [id, name]
-    ```
-    [ number, string ][]
+  - ```typescript
+    //tuples: [id, name]
+    type res = [ number, string ][]
     ```
 - Get students by group id
   - GET `.../points/students/:group_id`
-  - Returns tuples: [id, name]
-    ```
-    [ number, string ][]
+  - ```typescript
+    //tuples: [id, name]
+    type res = [ number, string ][]
     ```
 - Getting points for student subjects attendance by student id
   - GET `.../points/:student_id`
-  - ```
-    Array<{
+  - ```typescript
+    type res = Array<{
       subject: string
       attendances: number
       points: string
@@ -130,8 +127,7 @@ Frontend:
     }>
     ```
 
-
-### Reference:
+### Types Reference:
 ```typescript
 type TLesson = {
   id: number
